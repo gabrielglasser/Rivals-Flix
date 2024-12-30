@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
+import "./filme-info.css";
 
 function Filme() {
   const { id } = useParams();
@@ -52,6 +53,12 @@ function Filme() {
 
       <strong>Estreia: {filme.release_date}</strong>
       <strong>Nota: {filme.vote_average} / 10</strong>
+
+    <div className="area-botoes">
+        <button>Salvar</button>
+        <button><a href={`https://youtube.com/results?search_query=${filme.title} Trailer`}>Trailer</a></button>
+    </div>
+
     </div>
   );
 }
