@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import "./filme-info.css";
 
 function Filme() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [filme, setFilme] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -21,8 +22,9 @@ function Filme() {
           setFilme(response.data);
           setLoading(false);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          navigate("/", { replace: true });
+          return;
         });
     }
 
@@ -31,7 +33,7 @@ function Filme() {
     return () => {
       console.log("componente desmontado");
     };
-  }, []);
+  }, [id, navigate]);
 
   if (loading) {
     return (
@@ -54,11 +56,18 @@ function Filme() {
       <strong>Estreia: {filme.release_date}</strong>
       <strong>Nota: {filme.vote_average} / 10</strong>
 
-    <div className="area-botoes">
+      <div className="area-botoes">
         <button>Salvar</button>
-        <button><a href={`https://youtube.com/results?search_query=${filme.title} Trailer`}>Trailer</a></button>
-    </div>
-
+        <button>
+          <a
+            target="blank"
+            rel="external"
+            href={`https://youtube.com/results?search_query=${filme.title} Trailer`}
+          >
+            Trailer
+          </a>
+        </button>
+      </div>
     </div>
   );
 }
