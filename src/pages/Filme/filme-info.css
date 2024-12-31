@@ -54,4 +54,11 @@
     color: white;
 }
 
+strong{
+    display: flex;
+    margin-bottom: 14px;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
 
